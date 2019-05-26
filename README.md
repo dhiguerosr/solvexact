@@ -1,2 +1,2 @@
 # solvexact
-Interpreter for define and solve mathematical functions. Written en VB.NET and Goldparser.
+Interpreter to define and solve mathematical functions. Written en VB.NET and Goldparser.
