@@ -1,0 +1,81 @@
+"Name"    = Solve Exact
+"Author"  = Dennis Higueros
+"Version" = 1
+"About"   = Sove Exact Grammar
+ 
+"Case Sensitive" = False 
+"Start Symbol"   = <Start>
+
+ID       = {Letter}{AlphaNumeric}*
+Integer = {Digit}+ 
+Float = {Digit}*'.'{Digit}+([Ee][+-]?{Digit}+)?
+
+<Start>        ::=<Declaration>
+                 |<Func Def>
+                 |<Expression>
+                   
+<Declaration>  ::= 'var' ID ';'
+                | 'var' <Assign>
+                |<Assign>
+
+<Assign>       ::= ID '=' <Expression> ';'
+             
+<Func Def>     ::= 'definir' ID '(' <List ID> ')' ';'
+                |'definir' <Func Assign>
+                |<Expression> ';'
+                    
+<Func Assign>  ::= ID '(' <List ID> ')' '=' <Expression> ';'
+                
+
+<List ID>      ::= <List ID> ',' ID
+                | ID
+                
+<Expression>   ::= <Expression> '+' <Mult Exp>
+                 | <Expression> '-' <Mult Exp> 
+                 | <Mult Exp> 
+
+<Mult Exp>    ::= <Mult Exp> '*' <Pow Exp> 
+                | <Mult Exp> '/' <Pow Exp> 
+                | <Pow Exp> 
+                
+<Pow Exp>     ::= <Pow Exp> '^' <Unary Exp>
+                | <Unary Exp>
+                
+<Unary Exp>  ::= '-' <Value>
+                | '++' ID
+                | '--' ID
+                | <PostUnary Exp>
+                | <Value>
+
+<PostUnary Exp> ::= ID '++'
+                 | ID '--'
+                 | <CalL>
+                 
+<Call>         ::=  ID '(' <List Exp> ')'
+                    
+<Value>        ::= 'e'
+                | 'pi'
+                | ID 
+                | Float
+                | Integer
+                | 'sin' '(' <Expression> ')'
+                | 'cos' '(' <Expression> ')'
+                | 'tan' '(' <Expression> ')'
+                | 'csc' '(' <Expression> ')'
+                | 'sec' '(' <Expression> ')'
+                | 'cot' '(' <Expression> ')'
+                | 'arcsin' '(' <Expression> ')'
+                | 'arccos' '(' <Expression> ')'
+                | 'arctan' '(' <Expression> ')'
+                | 'ln' '(' <Expression> ')'
+                | 'log2' '(' <Expression> ')'
+                | 'log' '(' <Expression> ')'
+                | 'exp' '(' <Expression> ')'
+                | 'sqrt' '(' <Expression> ')'
+                | 'graph' '(' <Expression> ')'
+                | '[' <Expression> ']' 
+                | '{' <Expression> '}'
+                | '(' <Expression> ')'
+            
+<List Exp>     ::= <List Exp> ',' <Expression>
+                |<Expression>
